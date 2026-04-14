@@ -7,19 +7,21 @@ namespace ORM_Dapper;
 public class DapperDepartmentRepository : IDepartmentRepository
 {
     private readonly IDbConnection _connection;
+    private string _sql = "";
     public DapperDepartmentRepository(IDbConnection connection)
     {
         _connection = connection;
     }
     public IEnumerable<Department> GetAllDepartments()
     {
-        return _connection.Query<Department>("SELECT * FROM Departments");
+        _sql = "SELECT * FROM Departments";
+        return _connection.Query<Department>(_sql);
     }
 
     public void InsertDepartment(string departmentName)
     {
-        string sql = "INSERT INTO departments(Name) VALUES(@Name);";
-        _connection.Execute(sql, new {Name = departmentName});
+        _sql = "INSERT INTO departments(Name) VALUES(@Name);";
+        _connection.Execute(_sql, new {Name = departmentName});
     }
 
 }
