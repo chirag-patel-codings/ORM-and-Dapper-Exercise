@@ -339,8 +339,14 @@ namespace ORM_Dapper
             return (product, "");
         }
 
-
-        // Displays the values of the supplied IEnumerable<T>
+        // If the function definition: [static void DisplayResults<T>(T objects) where T : IEnumerable]  then 
+        // ==> 'T' is 'IEnumerable<Department>' or 'IEnumerable<Product>' itself and 'objects' is the collection of them. 
+        // Different way of implementation...Need to iterate through the object first to get 'IEnumerable<T>' from it and then get values from it...NOT SURE BUT RESEARCH HINT...
+        
+        // Below function Displays the values of the supplied IEnumerable<T> (Strongly typed for 'T')
+        // T is 'Department' OR 'Product' in this scenario, 'objects' is the 'List<T> (IEnumerable<T>)'.
+        // Values are directly accessed here...
+        
         static void DisplayResults<T>(IEnumerable<T> objects)
         {
             // 1. Get the type of the object
